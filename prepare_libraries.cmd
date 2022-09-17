@@ -7,5 +7,6 @@ goto end
 :process
 cd /d %1\SDK\Tools\
 LibraryBuilder.exe -o ..\Lib\
-
+pause
 :end
+pause
