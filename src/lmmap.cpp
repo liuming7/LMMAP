@@ -1,10 +1,13 @@
-/**
- * @file plugin.cpp
- * @brief The main file of the plugin
- */
-
+#include <EventAPI.h>
 #include <LoggerAPI.h>
+#include <ScheduleAPI.h>
 
+#include <MC/Player.hpp>
+#include <MC/Types.hpp>
+#include <MC/Objective.hpp>
+#include <MC/Scoreboard.hpp>
+
+#include <string>
 #include "version.h"
 
 // We recommend using the global logger.
@@ -16,7 +19,6 @@ extern Logger logger;
  */
 void PluginInit()
 {
-    // Your code here
     Logger logger(PLUGIN_NAME);
     logger.info("           ___          ___          ___          ___          ___          ___");
     logger.info("          /\\__\\        /\\__\\        /\\  \\        /\\  \\        /\\  \\        /\\__\\");
@@ -27,4 +29,26 @@ void PluginInit()
     logger.info("    &6\\\\&r    \\/__/        \\/__/         &6________&r    \\/__/        \\/__/        \\/__/        \\/__/   &6\\\\");
     logger.info("     &6\\\\                             /liuming7\\                                                   \\\\");
     logger.info("      &6==============================================================================================");
+    logger.info("LMMap is made by liuming7, and Powered by LiteLoaderBDS");
+
+    Event::ServerStartedEvent::subscribe([](const Event::ServerStartedEvent& event) {
+        auto* objective = Scoreboard::newObjective("disablesidebar", "sidebar switch");
+        //getScore(const std::string& objname, const std::string& id);
+        return true;
+    });
+
+    Event::PlayerJoinEvent::subscribe([](const Event::PlayerJoinEvent& event) {
+        auto player = event.mPlayer;
+        
+        player->sendTitlePacket(
+        "Welcome to 203!",
+        TitleType::SetTitle,
+        /* FadeInDuration =  */ 1,
+        /* RemainDuration =  */ 2,
+        /* FadeOutDuration =  */ 1
+        );
+
+        //logger.info("Player {} has joined the server.", player->getName());
+        return true;
+    });
 }
