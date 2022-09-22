@@ -8,6 +8,8 @@
 #include <mutex>
 #include <shared_mutex>
 
+#define MARKERBOOK_PATH "./plugins/LMMap/unmined-web/customMarkers.json"
+
 std::shared_mutex markersReadMutex;
 
 nlohmann::json playerMarkers = nlohmann::json::array();
@@ -46,7 +48,7 @@ void updatePlayerMarkers() {
 		playerMarker["imageAnchor"][1] = 1;
 		playerMarker["imageScale"] = 1;
 		playerMarker["text"] = player->getName();
-		playerMarker["textColor"] = "red";
+		playerMarker["textColor"] = "yellow";
 		playerMarker["offsetX"] = 0;
 		playerMarker["offsetY"] = 20;
 		playerMarker["font"] = "bold 20px Calibri,sans serif";
@@ -66,7 +68,7 @@ void addCustomMarker(std::string text, int x,int y, int z){
 	customMarker["imageAnchor"][1] = 1;
 	customMarker["imageScale"] = 0.2;
 	customMarker["text"] = text;
-	customMarker["textColor"] = "red";
+	customMarker["textColor"] = "white";
 	customMarker["offsetX"] = 0;
 	customMarker["offsetY"] = 20;
 	customMarker["font"] = "bold 20px Calibri,sans serif";
@@ -91,6 +93,35 @@ void deleteCustomMarker(std::string text){
 	lock.unlock();
 }
 
+nlohmann::json loadCustomMarkers(){
+	try {
+        if (!std::filesystem::exists(MARKERBOOK_PATH)) {
+            this->save();
+            return;
+        }
+        std::ifstream in(MARKERBOOK_PATH);
+        in>>customMarkers;
+        in.close();
+    }
+    catch (const std::exception& e) {
+        Logger("LMMAP").error("Failed to load custom markers: {}", e.what());
+    }
+}
+
+void saveCustomMarkers() {
+    try {
+        std::ofstream out(MARKERBOOK_PATH);
+        out<<customMarkers.dump(4);
+        out.close();
+    }
+    catch (const std::exception) {
+        Logger("LMMAP").error("Failed to save(create) custom markers.");
+    }
+}
+
+
 void markersInit() {
+	loadCustomMarkers();
 	Schedule::repeat(updatePlayerMarkers, 20);
+	Schedule::repeat(saveCustomMarkers, 200);
 }
