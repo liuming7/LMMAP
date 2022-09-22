@@ -33,7 +33,7 @@ std::string getLevelName();
 std::string getPlayerMarkers();
 std::string getCustomMarkers();
 
-void addCustomMarker();
-void deleteCustomMarker();
+void addCustomMarker(std::string text, int x,int y, int z);
+void deleteCustomMarker(std::string text);
 
 #endif //PCH_H

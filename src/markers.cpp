@@ -55,16 +55,16 @@ void updatePlayerMarkers() {
 	lock.unlock();
 }
 
-void addCustomMarker(std::string text, Vec3& position){
+void addCustomMarker(std::string text, int x,int y, int z){
 	std::unique_lock lock{ markersReadMutex };
 	nlohmann::json customMarker = {};
-	customMarker["x"] = position.x;
-	customMarker["z"] = position.z;
+	customMarker["x"] = x;
+	customMarker["z"] = z;
 	customMarker["image"] = "custom.pin.png";
 	customMarker["imageAnchor"] = nlohmann::json::array();
 	customMarker["imageAnchor"][0] = 0.5;
 	customMarker["imageAnchor"][1] = 1;
-	customMarker["imageScale"] = 1;
+	customMarker["imageScale"] = 0.2;
 	customMarker["text"] = text;
 	customMarker["textColor"] = "red";
 	customMarker["offsetX"] = 0;

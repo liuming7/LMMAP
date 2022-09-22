@@ -29,14 +29,14 @@ void from_json(const nlohmann::json& node, Config& cfg) {
         cfg.apiServerPort = node["apiServer"]["port"].get<uint16_t>();
     }
     if (node.contains("customMarkers") && node["customMarkers"].contains("enable")) {
-        cfg.apiServerPort = node["customMarkers"]["enable"].get<bool>();
+        cfg.enableCustomMarkers = node["customMarkers"]["enable"].get<bool>();
     }
     if (node.contains("updateMap")) {
         if (node["updateMap"].contains("enable")) {
-            cfg.enableWebChat = node["updateMap"]["enable"].get<bool>();
+            cfg.enableUpdateMap = node["updateMap"]["enable"].get<bool>();
         }
         if (node["updateMap"].contains("skip")) {
-            cfg.webChatOutboundPrefix = node["updateMap"]["skip"].get<uint32_t>();
+            cfg.updateMapSkip = node["updateMap"]["skip"].get<uint32_t>();
         }
     }
     if (node.contains("mapRender")) {

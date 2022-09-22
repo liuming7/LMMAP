@@ -7,7 +7,7 @@
 #include <MC/Objective.hpp>
 #include <MC/Scoreboard.hpp>
 
-#include <string>
+#include <cstring>
 #include "version.h"
 
 #include "pch.h"
@@ -58,7 +58,24 @@ void PluginInit()
 
     Event::PlayerChatEvent::subscribe([](const Event::PlayerChatEvent& event) {
         if(config.enableCustomMarkers){
+            std::string text;
+            std::string command;
+            int x=0,y=0,z=0;
             std::string message_content = event.mMessage;
+            if(message_content.find_first_of('|')==0){
+                command = message_content.substr(message_content.find_first_of('|')+1,message_content.find_first_of(' ')-message_content.find_first_of('|')-1);
+                text = message_content.substr(message_content.find_first_of(' ')+1,message_content.find_last_of(' ')-message_content.find_first_of(' ')-1);
+                if(command=="del"){
+                    deleteCustomMarker(text);
+                    return true;
+                }else if(command=="add"){
+                    x = stoi(message_content.substr(message_content.find_last_of(' ')+1,message_content.find_first_of(',')-message_content.find_last_of(' ')-1));
+                    y = stoi(message_content.substr(message_content.find_first_of(',')+1,message_content.find_last_of(',')-message_content.find_first_of(',')-1));
+                    z = stoi(message_content.substr(message_content.find_last_of(',')+1,message_content.length()-message_content.find_last_of(',')-1));
+                    addCustomMarker(text,x,y,z);
+                    return true;
+                }
+            }
         }
 		return true;
 	});
