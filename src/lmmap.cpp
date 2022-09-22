@@ -10,6 +10,10 @@
 #include <string>
 #include "version.h"
 
+#include "pch.h"
+#include <thread>
+#include "conf.h"
+
 // We recommend using the global logger.
 extern Logger logger;
 
@@ -31,11 +35,11 @@ void PluginInit()
     logger.info("      &6==============================================================================================");
     logger.info("LMMap is made by liuming7, and Powered by LiteLoaderBDS");
 
-    Event::ServerStartedEvent::subscribe([](const Event::ServerStartedEvent& event) {
+    /*Event::ServerStartedEvent::subscribe([](const Event::ServerStartedEvent& event) {
         auto* objective = Scoreboard::newObjective("disablesidebar", "sidebar switch");
         //getScore(const std::string& objname, const std::string& id);
         return true;
-    });
+    });*/
 
     Event::PlayerJoinEvent::subscribe([](const Event::PlayerJoinEvent& event) {
         auto player = event.mPlayer;
@@ -51,4 +55,20 @@ void PluginInit()
         //logger.info("Player {} has joined the server.", player->getName());
         return true;
     });
+
+    Event::PlayerChatEvent::subscribe([](const Event::PlayerChatEvent& event) {
+        if(config.enableCustomMarkers){
+            std::string message_content = event.mMessage;
+        }
+		return true;
+	});
+
+    std::ios::sync_with_stdio(false);
+    config.load();
+    markersInit();
+    std::thread apiServerThread(startApiServer);
+    apiServerThread.detach();
+    preStartUnmined();
+    stopNginx();
+    startNginx();
 }
