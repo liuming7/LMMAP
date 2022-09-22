@@ -93,10 +93,17 @@ void deleteCustomMarker(std::string text){
 	lock.unlock();
 }
 
-nlohmann::json loadCustomMarkers(){
+void loadCustomMarkers(){
 	try {
         if (!std::filesystem::exists(MARKERBOOK_PATH)) {
-            this->save();
+            try {
+				std::ofstream out(MARKERBOOK_PATH);
+				out<<customMarkers.dump(4);
+				out.close();
+			}
+			catch (const std::exception) {
+				Logger("LMMAP").error("Failed to save(create) custom markers.");
+			}
             return;
         }
         std::ifstream in(MARKERBOOK_PATH);
@@ -123,5 +130,5 @@ void saveCustomMarkers() {
 void markersInit() {
 	loadCustomMarkers();
 	Schedule::repeat(updatePlayerMarkers, 20);
-	Schedule::repeat(saveCustomMarkers, 200);
+	Schedule::repeat(saveCustomMarkers, 36000);
 }

@@ -17,6 +17,10 @@ int startApiServer() {
         res.set_content(getCustomMarkers(), "application/json");
     });
 
+    svr.Get("/api/reloadCustomMarkers", [](const httplib::Request&, httplib::Response& res) {
+        loadCustomMarkers();
+    });
+
     svr.listen("0.0.0.0", config.apiServerPort);
     return 0;
 }
