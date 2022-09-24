@@ -74,6 +74,7 @@ void addCustomMarker(std::string text, int x,int y, int z){
 	customMarker["font"] = "bold 20px Calibri,sans serif";
 	customMarkers.push_back(customMarker);
 	lock.unlock();
+	saveCustomMarkers();
 }
 
 std::string getAllCustomMarkers(){
@@ -91,19 +92,13 @@ void deleteCustomMarker(std::string text){
 		i++;
 	}
 	lock.unlock();
+	saveCustomMarkers();
 }
 
 void loadCustomMarkers(){
 	try {
         if (!std::filesystem::exists(MARKERBOOK_PATH)) {
-            try {
-				std::ofstream out(MARKERBOOK_PATH);
-				out<<customMarkers.dump(4);
-				out.close();
-			}
-			catch (const std::exception) {
-				Logger("LMMAP").error("Failed to save(create) custom markers.");
-			}
+            saveCustomMarkers();
             return;
         }
         std::ifstream in(MARKERBOOK_PATH);
@@ -130,5 +125,5 @@ void saveCustomMarkers() {
 void markersInit() {
 	loadCustomMarkers();
 	Schedule::repeat(updatePlayerMarkers, 20);
-	Schedule::repeat(saveCustomMarkers, 36000);
+	//Schedule::repeat(saveCustomMarkers, 36000);
 }

@@ -113,7 +113,9 @@ void preStartUnmined() {
 		}, 40);
 	if(config.enableUpdateMap){
 		updateMap = Schedule::repeat([](){
-			startUnmined();
+			if(Level::getAllPlayers().size()>0){
+				startUnmined();
+			}
 		}, config.updateMapSkip>=12000 ? config.updateMapSkip : 12000);//10min
 	}
 }

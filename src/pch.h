@@ -36,5 +36,6 @@ std::string getCustomMarkers();
 void addCustomMarker(std::string text, int x,int y, int z);
 void deleteCustomMarker(std::string text);
 void loadCustomMarkers();
+void saveCustomMarkers();
 
 #endif //PCH_H
