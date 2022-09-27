@@ -6,9 +6,9 @@
 
 #pragma once
 
-#define PLUGIN_VERSION_DEV 0
-#define PLUGIN_VERSION_BETA 1
-#define PLUGIN_VERSION_RELEASE 2
+#define PLUGIN_VERSION_DEV 1
+#define PLUGIN_VERSION_BETA 0
+#define PLUGIN_VERSION_RELEASE 3
 
 // ***************************************************************************************
 
@@ -28,9 +28,9 @@
 
 // The version of your plugin. If you do not know how to set it, please refer
 // to https://semver.org/ .
-#define PLUGIN_VERSION_MAJOR 0
-#define PLUGIN_VERSION_MINOR 1
-#define PLUGIN_VERSION_REVISION 0
+#define PLUGIN_VERSION_MAJOR 1
+#define PLUGIN_VERSION_MINOR 0
+#define PLUGIN_VERSION_REVISION 3
 #define PLUGIN_VERSION_BUILD 0
 
 // The stage of your plugin, which can be PLUGIN_VERSION_DEV, PLUGIN_VERSION_BETA
