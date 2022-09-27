@@ -1,5 +1,5 @@
 #include "pch.h"
-#include <third-party/httplib/httplib.h>
+#include <httplib/httplib.h>
 #include "conf.h"
 
 int startApiServer() {

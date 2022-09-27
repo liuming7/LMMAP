@@ -2,11 +2,11 @@
 #include "pch.h"
 #include "shell.h"
 #include "conf.h"
-#include <LoggerAPI.h>
-#include <ScheduleAPI.h>
-#include <MC/Level.hpp>
-#include <EventAPI.h>
-#include <LLAPI.h>
+#include <llapi/LoggerAPI.h>
+#include <llapi/ScheduleAPI.h>
+#include <llapi/mc/Level.hpp>
+#include <llapi/EventAPI.h>
+#include <llapi/LLAPI.h>
 #include <algorithm>
 
 std::string& trim(std::string& s)
@@ -87,7 +87,7 @@ ScheduleTask updateMap;
 void preStartUnmined() {
 	Event::ServerStartedEvent::subscribe([](const Event::ServerStartedEvent& ev) {
 		Logger logger("LMMAP");
-		LL::Plugin* backupHelperPlugin = LL::getPlugin("BackupHelper");
+		ll::Plugin* backupHelperPlugin = ll::getPlugin("BackupHelper");
 		// 查找是否有BackupHelper
 		if (backupHelperPlugin != nullptr) {
 			std::string backupHelperPluginVersion = backupHelperPlugin->version.toString();

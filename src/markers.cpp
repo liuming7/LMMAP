@@ -1,9 +1,9 @@
 #include "pch.h"
 
-#include <third-party/Nlohmann/json.hpp>
-#include <MC/Level.hpp>
-#include <MC/Player.hpp>
-#include <ScheduleAPI.h>
+#include <Nlohmann/json.hpp>
+#include <llapi/mc/Level.hpp>
+#include <llapi/mc/Player.hpp>
+#include <llapi/ScheduleAPI.h>
 
 #include <mutex>
 #include <shared_mutex>

@@ -1,11 +1,11 @@
-#include <EventAPI.h>
-#include <LoggerAPI.h>
-#include <ScheduleAPI.h>
+#include <llapi/EventAPI.h>
+#include <llapi/LoggerAPI.h>
+#include <llapi/ScheduleAPI.h>
 
-#include <MC/Player.hpp>
-#include <MC/Types.hpp>
-#include <MC/Objective.hpp>
-#include <MC/Scoreboard.hpp>
+#include <llapi/mc/Player.hpp>
+#include <llapi/mc/Types.hpp>
+#include <llapi/mc/Objective.hpp>
+#include <llapi/mc/Scoreboard.hpp>
 
 #include <cstring>
 #include "version.h"

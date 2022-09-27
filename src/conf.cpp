@@ -5,7 +5,7 @@
 #pragma warning(disable: 4996)
 #pragma warning(disable: 4251)
 #pragma warning(disable: 4275)
-#include <third-party/Nlohmann/json.hpp>
+#include <Nlohmann/json.hpp>
 
 #define CONFIG_PATH "./plugins/LMMap/lmmap_config.json"
 

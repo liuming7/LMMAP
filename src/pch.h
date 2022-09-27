@@ -14,9 +14,9 @@
 #include <iostream>
 #include <Windows.h>
 
-#include <LLAPI.h>
-#include <LoggerAPI.h>
-#include <I18nAPI.h>
+#include <llapi/LLAPI.h>
+#include <llapi/LoggerAPI.h>
+#include <llapi/I18nAPI.h>
 
 #pragma comment(lib, "bedrock_server_api.lib")
 #pragma comment(lib, "bedrock_server_var.lib")
