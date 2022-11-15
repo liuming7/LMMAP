@@ -117,14 +117,14 @@ void PluginInit()
             std::vector<std::string> command_set = ModUtils::split(event.mCommand, " ");
             if(command_set[1]=="del"){
                 deleteCustomMarker(command_set[2]);
-                event.mPlayer->sendTextPacket(command_set[2] + " has deleted");
+                event.mPlayer->sendTextPacket(command_set[2] + " has been deleted");
             }else if(command_set[1]=="add"){
                 if(command_set.size() == 3){
                     addCustomMarker(command_set[2], event.mPlayer->getBlockPos().x, event.mPlayer->getBlockPos().y, event.mPlayer->getBlockPos().z);
                 }else if(command_set.size() == 6){
                     addCustomMarker(command_set[2], stoi(command_set[3]), stoi(command_set[4]), stoi(command_set[5]));
                 }
-                event.mPlayer->sendTextPacket(command_set[2] + " has added");
+                event.mPlayer->sendTextPacket(command_set[2] + " has been added");
             }
         }
         return true;
